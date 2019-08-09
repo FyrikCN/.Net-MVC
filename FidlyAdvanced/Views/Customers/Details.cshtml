@@ -1,0 +1,10 @@
+﻿@model IEnumerable<FidlyAdvanced.Models.Customer>
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+@foreach(var customer in Model)
+{
+    @customer.Name
+}
