@@ -9,24 +9,27 @@ namespace FidlyAdvanced.Controllers
 {
     public class CustomersController : Controller
     {
-
-        public static List<Customer> customers = new List<Customer>
+        private IEnumerable<Customer> GetCustomers()
         {
-            new Customer { Id = 1, Name = "Fyrik" },
-            new Customer { Id = 2, Name = "Koko" }
-        };
+            return new List<Customer>
+            {
+                new Customer { Id = 1, Name = "Fyrik" },
+                new Customer { Id = 2, Name = "Koko" }
+            };
+        }
 
         // GET: Customers
         public ActionResult Index()
         {
+            var customers = GetCustomers();
             return View(customers);
         }
 
         [Route("Customers/Details/{id}")]
         public ActionResult Details(int id)
         {
-            var customerList = from customer in customers where customer.Id == id select customer;
-            return View(customerList);
+            var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
+            return View(customer);
         }
     }
 }
